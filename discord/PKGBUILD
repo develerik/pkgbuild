@@ -1,0 +1,50 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Morgan <morganamilo@archlinux.org>
+
+pkgname=discord
+_pkgname=Discord
+pkgver=0.0.21
+pkgrel=1
+pkgdesc="All-in-one voice and text chat for gamers that's free and secure."
+arch=('x86_64')
+options=(!strip)
+url='https://discordapp.com'
+license=('custom')
+depends=('libnotify' 'libxss' 'nspr' 'nss' 'gtk3')
+optdepends=('libpulse: Pulseaudio support'
+            'xdg-utils: Open files')
+source=("https://dl.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
+        'LICENSE.html::https://discordapp.com/terms'
+        'OSS-LICENSES.html::https://discordapp.com/licenses')
+sha512sums=('149ae5b8b7d92549e12eca52e45d3f5761ef022ae321cf33fadc3b56c4cee0616a5166380faea038256213713a7aa90e1befc4caa3e6a4de8e15c1cb1d8f925d'
+            '2698ba172a47309be245ee6feb8d8d55d69f04c2b7f0b2b78936c478fce50b02ebd1bf9db24e2991953379e2e07f23f75617c4e7d8b5913c4daa505bf1a19fda'
+            'a56d305f70768cbc256cb0008b290bb03ad8cfd085fbf7ca8ffb7fe547599c4903b89db25eab4f7ea7d81e8aded2a2609b31901ed85a6ff58f0ee037c96c62a6')
+
+prepare() {
+  cd $_pkgname
+
+  sed -i "s|Exec=.*|Exec=/usr/bin/$pkgname|" $pkgname.desktop
+  echo 'Path=/usr/bin' >> $pkgname.desktop
+}
+
+package() {
+  # Install the app
+  install -d "$pkgdir"/opt/$pkgname
+  cp -a $_pkgname/. "$pkgdir"/opt/$pkgname
+
+  chmod 755 "$pkgdir"/opt/$pkgname/$_pkgname
+
+  rm "$pkgdir"/opt/$pkgname/postinst.sh
+
+  install -d "$pkgdir"/usr/{bin,share/{pixmaps,applications}}
+  ln -s /opt/$pkgname/$_pkgname "$pkgdir"/usr/bin/$pkgname
+  ln -s /opt/$pkgname/discord.png "$pkgdir"/usr/share/pixmaps/$pkgname.png
+  ln -s /opt/$pkgname/$pkgname.desktop "$pkgdir"/usr/share/applications/$pkgname.desktop
+
+  # setuid on chrome-sandbox
+  chmod u+s "$pkgdir"/opt/$pkgname/chrome-sandbox
+
+  # Licenses
+  install -Dm 644 LICENSE.html "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.html
+  install -Dm 644 OSS-LICENSES.html "$pkgdir"/usr/share/licenses/$pkgname/OSS-LICENSES.html
+}
