@@ -1,0 +1,5 @@
+osv-scanner-git
+
+src
+pkg
+*.pkg.tar

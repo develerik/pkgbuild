@@ -1,7 +1,7 @@
 # Maintainer: Erik Bender <erik.bender@develerik.dev>
 
 pkgname=dive-git
-pkgver=0.10.0.r157.g933e9ec
+pkgver=0.10.0.r159.g7a17edb
 pkgrel=1
 pkgdesc="A tool for exploring each layer in a docker image"
 url="https://github.com/jauderho/dive"
