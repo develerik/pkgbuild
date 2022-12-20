@@ -1,3 +1,9 @@
+### Custom Entries ###
+
+*.pkg.tar
+src
+pkg
+
 # Created by https://www.toptal.com/developers/gitignore/api/linux,windows,macos,vim,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,windows,macos,vim,visualstudiocode
 
@@ -23,7 +29,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

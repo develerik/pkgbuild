@@ -1,0 +1,16 @@
+# Maintainer: Erik Bender <erik.bender@develerik.dev>
+
+pkgname=osv-scanner
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
+url="https://github.com/google/osv-scanner"
+arch=('x86_64')
+license=('Apache License 2.0')
+provides=(osv-scanner)
+source=("https://github.com/google/osv-scanner/releases/download/v${pkgver}/${pkgname}_${pkgver}_linux_amd64")
+sha256sums=('5b550521d7ca7f708059daff6a45bae776bbefa4c0f1a4ce5298cd50808a3d7a')
+
+package() {
+	install -Dm755 "$srcdir/${pkgname}_${pkgver}_linux_amd64" "${pkgdir}/usr/local/bin/osv-scanner"
+}
