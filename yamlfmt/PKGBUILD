@@ -1,0 +1,16 @@
+# Maintainer: Erik Bender <erik.bender@develerik.dev>
+
+pkgname=yamlfmt
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="An extensible command line tool or library to format yaml files"
+url="https://github.com/google/yamlfmt"
+arch=('x86_64')
+license=('Apache License 2.0')
+provides=(yamlfmt)
+source=("https://github.com/google/yamlfmt/releases/download/v${pkgver}/${pkgname}_${pkgver}_Linux_x86_64.tar.gz")
+sha256sums=('be74c15db4f5ace21e962b7074b8634727356f3a242afaa0862fde1d50bf55a3')
+
+package() {
+	install -Dm755 "$srcdir/yamlfmt" "${pkgdir}/usr/local/bin/yamlfmt"
+}
